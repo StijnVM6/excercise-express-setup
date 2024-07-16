@@ -36,8 +36,9 @@ router.get("/:id", (req, res) => {
     }
 });
 
-router.post("/", (req, res) => {
+router.post("/", authMiddleware, (req, res) => {
     // try {
+    console.log("Entered POST request Books.js");
     const { title, author, isbn, pages, available, genre } = req.body;
     const newBook = createBook(title, author, isbn, pages, available, genre);
     res.status(201).json(newBook);
