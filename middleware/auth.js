@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-    console.log("Start authMiddleware");
     const token = req.headers.authorization;
     const secretKey = process.env.AUTH_SECRET_KEY || 'my-secret-key';
 
