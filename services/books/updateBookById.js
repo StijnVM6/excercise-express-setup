@@ -1,11 +1,8 @@
+// import NotFoundError from "../../errors/notFoundError.js";
 import getBookById from "./getBookById.js";
 
 const updateBook = (id, title, author, isbn, pages, available, genre) => {
     const book = getBookById(id);
-
-    if (!book) {
-        throw new Error(`Book with ID: ${id} not found !`);
-    }
 
     book.title = title ?? book.title;
     book.author = author ?? book.author;

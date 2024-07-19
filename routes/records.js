@@ -4,6 +4,7 @@ import deleteRecordById from "../services/records/deleteRecordById.js";
 import getRecordsById from "../services/records/getRecordById.js";
 import createRecord from "../services/records/createRecord.js";
 import updateRecordById from "../services/records/updateRecordById.js";
+import notFoundErrorHandler from "../middleware/NotFoundErrorHandler.js";
 
 const router = express.Router();
 
@@ -20,26 +21,20 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-    try {
-        const { id } = req.params;
-        const record = getRecordsById(id);
-        res.status(200).json(record);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send(`Could not find the records with ID: ${id} ! `);
-    }
-});
+    const { id } = req.params;
+    const record = getRecordsById(id);
+
+    res.status(200).json(record);
+}, notFoundErrorHandler);
 
 router.delete("/:id", (req, res) => {
-    try {
-        const { id } = req.params;
-        const record = deleteRecordById(id);
-        res.status(200).json(record);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send(`Could not delete the record with ID: ${id} ! `);
-    }
-});
+    const { id } = req.params;
+    const record = deleteRecordById(id);
+
+    res.status(200).json({
+        message: `Record with id ${record} was deleted!`,
+    });
+}, notFoundErrorHandler);
 
 router.post("/", (req, res) => {
     try {
@@ -53,16 +48,12 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-    try {
-        const { id } = req.params;
-        const { title, artist, year, available, genre } = req.body;
-        const updatedRecord = updateRecordById(id, title, artist, year, available, genre);
-        res.status(200).json(updatedRecord);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send(`Could not update record with ID: ${id} !`);
-    }
-});
+    const { id } = req.params;
+    const { title, artist, year, available, genre } = req.body;
+    const updatedRecord = updateRecordById(id, title, artist, year, available, genre);
+
+    res.status(200).json(updatedRecord);
+}, notFoundErrorHandler);
 
 
 export default router;

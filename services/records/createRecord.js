@@ -12,6 +12,7 @@ const createRecord = (title, artist, year, available, genre) => {
         available,
         genre
     };
+
     getRecords().push(newRecord);
     return getRecordsById(id);
 };
