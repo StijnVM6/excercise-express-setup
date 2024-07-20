@@ -6,7 +6,6 @@ import log from "./middleware/logMiddleware.js";
 import "dotenv/config";
 
 import * as Sentry from "@sentry/node";
-// import { nodeProfilingIntegration } from "@sentry/profiling-node";
 
 import errorHandler from "./middleware/errorHandler.js";
 
